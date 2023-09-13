@@ -2,6 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";   // Mongoose is an ODM (Object Data Modeling) library for MongoDB and Node.js
 import authRoute from "./routes/auth.js";
+import hotelsRoute from "./routes/hotels.js";
+import roomsRoute from "./routes/rooms.js";
+import usersRoute from "./routes/users.js";
 
 // Initializing the Express application
 const app = express();
@@ -32,7 +35,10 @@ mongoose.connection.on('connected', () => {
 });
 
 // Middleware for authentication routes
-app.use('/auth', authRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/hotels', hotelsRoute);
+app.use('/api/users', usersRoute);
+app.use('/api/rooms', roomsRoute);
 
 // Starting the server on the specified port
 app.listen(port, () => {
