@@ -43,6 +43,18 @@ app.use('/api/hotels', hotelsRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/rooms', roomsRoute);
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    const errorStatus = err.status || 500
+    const errorMessage = err.message || 500
+    return res.status(errorStatus).json({
+        success: false,
+        status: errorStatus,
+        message: errorMessage,
+        stack: err.stack
+    });
+});
+
 // Starting the server on the specified port
 app.listen(port, () => {
     connect(); // Connect to MongoDB when the server starts
