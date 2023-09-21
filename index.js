@@ -5,6 +5,7 @@ import authRoute from "./routes/auth.js";
 import hotelsRoute from "./routes/hotels.js";
 import roomsRoute from "./routes/rooms.js";
 import usersRoute from "./routes/users.js";
+import cookieParser from "cookie-parser"
 
 // Initializing the Express application
 const app = express();
@@ -35,6 +36,7 @@ mongoose.connection.on('connected', () => {
 });
 
 // Middleware for authentication routes
+app.use(cookieParser())
 
 app.use(express.json())
 
