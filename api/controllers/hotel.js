@@ -47,3 +47,24 @@ export const getAllHotels = async (req, res, next) => {
         next(err); // Pass the error to the error handling middleware
     }
 }
+
+export const countByCity = async (req, res, next) => {
+    const cities = req.query.cities.split(",")
+    try {
+        const list = await Promise.all(cities.map(citi => {
+            return Hotel.countDocuments({city: citi})
+        }))
+        res.status(200).json({message: "all hotels data retrived", data: list})
+    } catch (err) {
+        next(err); // Pass the error to the error handling middleware
+    }
+}
+
+export const countByType = async (req, res, next) => {
+    try {
+        const hotel = await Hotel.find()
+        res.status(200).json({message: "all hotels count by cities retrived", data :hotel})
+    } catch (err) {
+        next(err); // Pass the error to the error handling middleware
+    }
+}
